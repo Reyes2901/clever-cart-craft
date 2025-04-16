@@ -61,6 +61,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				shop: {
+					blue: '#0066cc',
+					lightBlue: '#4d94ff',
+					gray: '#f5f5f5',
+					darkGray: '#333333',
+					accent: '#ff6600'
 				}
 			},
 			borderRadius: {
