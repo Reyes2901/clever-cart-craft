@@ -18,13 +18,13 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="font-bold text-xl text-shop-blue">
-            eCommerceIA
+            eComerciaIA
           </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-6">
             <Link to="/" className="text-gray-600 hover:text-shop-blue transition-colors">
-              Home
+              Inicio
             </Link>
             {categories.map(category => (
               <Link 
@@ -36,7 +36,7 @@ export function Navbar() {
               </Link>
             ))}
             <Link to="/products" className="text-gray-600 hover:text-shop-blue transition-colors">
-              All Products
+              Todos los Productos
             </Link>
           </nav>
           
@@ -45,15 +45,16 @@ export function Navbar() {
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="text-gray-600 hover:text-shop-blue transition-colors"
+              aria-label="Buscar"
             >
               <Search size={20} />
             </button>
             
-            <Link to="/account" className="text-gray-600 hover:text-shop-blue transition-colors">
+            <Link to="/account" className="text-gray-600 hover:text-shop-blue transition-colors" aria-label="Cuenta">
               <User size={20} />
             </Link>
             
-            <Link to="/cart" className="relative text-gray-600 hover:text-shop-blue transition-colors">
+            <Link to="/cart" className="relative text-gray-600 hover:text-shop-blue transition-colors" aria-label="Carrito">
               <ShoppingCart size={20} />
               {cartCount > 0 && (
                 <Badge 
@@ -65,10 +66,10 @@ export function Navbar() {
               )}
             </Link>
             
-            {/* Mobile menu button */}
             <button
               className="md:hidden text-gray-600 hover:text-shop-blue transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -81,7 +82,7 @@ export function Navbar() {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search for products..."
+                placeholder="Buscar productos..."
                 className="w-full border border-gray-200 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-shop-blue"
               />
               <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-shop-blue">
@@ -102,7 +103,7 @@ export function Navbar() {
                 className="text-gray-600 hover:text-shop-blue transition-colors py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Home
+                Inicio
               </Link>
               {categories.map(category => (
                 <Link 
@@ -119,7 +120,7 @@ export function Navbar() {
                 className="text-gray-600 hover:text-shop-blue transition-colors py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                All Products
+                Todos los Productos
               </Link>
             </nav>
           </div>

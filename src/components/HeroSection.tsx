@@ -9,17 +9,17 @@ export function HeroSection() {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-center md:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Shop with <span className="text-shop-blue">Confidence</span>
+              Compra con <span className="text-shop-blue">Confianza</span>
             </h1>
             <p className="mt-4 text-lg text-gray-600 max-w-lg mx-auto md:mx-0">
-              Discover amazing products with fast shipping and secure payments. Your ultimate shopping destination.
+              Descubre productos increíbles con envío rápido y pagos seguros. Tu destino definitivo para compras.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
               <Button className="bg-shop-blue hover:bg-shop-lightBlue px-8 py-3 h-auto" size="lg" asChild>
-                <Link to="/products">Shop Now</Link>
+                <Link to="/products">Comprar Ahora</Link>
               </Button>
               <Button variant="outline" className="px-8 py-3 h-auto" size="lg" asChild>
-                <Link to="/category/electronics">Explore Deals</Link>
+                <Link to="/category/electronics">Explorar Ofertas</Link>
               </Button>
             </div>
           </div>
@@ -27,7 +27,7 @@ export function HeroSection() {
             <div className="relative">
               <img 
                 src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2hvcHBpbmd8ZW58MHx8MHx8fDA%3D" 
-                alt="Shopping Experience" 
+                alt="Experiencia de Compra" 
                 className="rounded-lg shadow-xl"
               />
               <div className="absolute -bottom-5 -left-5 bg-white p-4 rounded-lg shadow-lg hidden md:block">
@@ -38,8 +38,8 @@ export function HeroSection() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-800">Free Shipping</p>
-                    <p className="text-xs text-gray-500">On orders over $50</p>
+                    <p className="text-sm font-medium text-gray-800">Envío Gratis</p>
+                    <p className="text-xs text-gray-500">En pedidos mayores a $50</p>
                   </div>
                 </div>
               </div>
@@ -51,8 +51,8 @@ export function HeroSection() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-800">Secure Payment</p>
-                    <p className="text-xs text-gray-500">100% secure checkout</p>
+                    <p className="text-sm font-medium text-gray-800">Pago Seguro</p>
+                    <p className="text-xs text-gray-500">Checkout 100% seguro</p>
                   </div>
                 </div>
               </div>

@@ -15,7 +15,7 @@ export function CategoryGrid() {
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h2 className="section-heading text-center">Shop by Category</h2>
+        <h2 className="section-heading text-center">Comprar por Categoría</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
           {categoryList.map(category => (
