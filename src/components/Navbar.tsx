@@ -50,7 +50,7 @@ export function Navbar() {
               <Search size={20} />
             </button>
             
-            <Link to="/account" className="text-gray-600 hover:text-shop-blue transition-colors" aria-label="Cuenta">
+            <Link to="/profile" className="text-gray-600 hover:text-shop-blue transition-colors" aria-label="Perfil">
               <User size={20} />
             </Link>
             
@@ -121,6 +121,20 @@ export function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Todos los Productos
+              </Link>
+              <Link 
+                to="/profile" 
+                className="text-gray-600 hover:text-shop-blue transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Mi Perfil
+              </Link>
+              <Link 
+                to="/login" 
+                className="text-gray-600 hover:text-shop-blue transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Iniciar Sesión
               </Link>
             </nav>
           </div>
