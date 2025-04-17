@@ -10,20 +10,20 @@ export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link 
       to={`/category/${category.id}`} 
-      className="block relative group overflow-hidden rounded-lg shadow-md"
+      className="block relative group overflow-hidden rounded-xl shadow-lg transform hover:-translate-y-1 transition-all duration-300"
     >
-      <div className="aspect-[4/3] overflow-hidden">
+      <div className="aspect-square overflow-hidden">
         <img 
-          src={category.image || 'https://via.placeholder.com/400x300'} 
+          src={category.image || 'https://via.placeholder.com/400x400'} 
           alt={category.name} 
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+      <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 to-transparent flex items-end p-6">
         <div>
-          <h3 className="text-white font-bold text-xl">{category.name}</h3>
+          <h3 className="text-white font-bold text-xl mb-1">{category.name}</h3>
           {category.description && (
-            <p className="text-white/80 text-sm mt-1">{category.description}</p>
+            <p className="text-white/90 text-sm">{category.description}</p>
           )}
         </div>
       </div>

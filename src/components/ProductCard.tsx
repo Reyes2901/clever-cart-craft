@@ -15,36 +15,34 @@ export function ProductCard({ product }: ProductCardProps) {
   const hasDiscount = product.discountPrice && product.discountPrice < product.price;
   
   return (
-    <div className="product-card group">
-      {/* Product Image */}
-      <Link to={`/product/${product.id}`} className="block overflow-hidden relative">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden group transform hover:-translate-y-1 transition-all duration-300">
+      <Link to={`/product/${product.id}`} className="block relative overflow-hidden">
         <div className="aspect-square overflow-hidden">
           <img 
             src={product.images[0]} 
             alt={product.name} 
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         </div>
         
         {hasDiscount && (
-          <Badge variant="sale" className="absolute top-2 right-2">
-            Sale
+          <Badge className="absolute top-2 right-2 bg-red-500 text-white">
+            Oferta
           </Badge>
         )}
         
         {!product.inStock && (
-          <div className="absolute inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-            <Badge variant="outline" className="bg-white text-gray-900 px-3 py-1">
-              Out of Stock
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+            <Badge variant="outline" className="bg-white text-black px-3 py-1">
+              Agotado
             </Badge>
           </div>
         )}
       </Link>
       
-      {/* Product Details */}
       <div className="p-4">
         <Link to={`/product/${product.id}`} className="block">
-          <h3 className="font-medium text-gray-800 hover:text-shop-blue transition-colors">
+          <h3 className="font-semibold text-gray-800 hover:text-purple-600 transition-colors line-clamp-2">
             {product.name}
           </h3>
         </Link>
@@ -53,11 +51,11 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="flex items-center">
             {hasDiscount ? (
               <>
-                <span className="text-shop-accent font-semibold">${product.discountPrice?.toFixed(2)}</span>
-                <span className="ml-2 text-gray-500 text-sm line-through">${product.price.toFixed(2)}</span>
+                <span className="text-red-500 font-bold">${product.discountPrice?.toFixed(2)}</span>
+                <span className="ml-2 text-gray-400 text-sm line-through">${product.price.toFixed(2)}</span>
               </>
             ) : (
-              <span className="font-semibold text-gray-800">${product.price.toFixed(2)}</span>
+              <span className="font-bold text-gray-800">${product.price.toFixed(2)}</span>
             )}
           </div>
           
@@ -74,12 +72,12 @@ export function ProductCard({ product }: ProductCardProps) {
           <Button 
             variant="default" 
             size="sm" 
-            className="w-full flex items-center justify-center"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white"
             onClick={() => addToCart(product)}
             disabled={!product.inStock}
           >
             <ShoppingCart size={16} className="mr-2" />
-            Add to Cart
+            Agregar
           </Button>
         </div>
       </div>

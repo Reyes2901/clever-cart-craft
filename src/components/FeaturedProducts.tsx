@@ -8,17 +8,21 @@ export function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   
   useEffect(() => {
-    // In a real app, this would be an API call
     const featured = getFeaturedProducts();
     setProducts(featured);
   }, []);
   
   return (
-    <section className="py-12">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="section-heading text-center">Productos Destacados</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">
+          Productos Destacados
+        </h2>
+        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+          Explora nuestra selección de productos más populares y mejor valorados
+        </p>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {products.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
