@@ -11,12 +11,8 @@ import Index from "./pages/Index";
 import ProductListing from "./pages/ProductListing";
 import ProductDetail from "./pages/ProductDetail";
 import CartPage from "./pages/CartPage";
-import Checkout from "./pages/Checkout";
-import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ProfilePage from "./pages/ProfilePage";
-import AdminDashboard from "./pages/AdminDashboard";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -34,14 +30,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<ProductListing />} />
-            <Route path="/category/:categoryId" element={<ProductListing />} />
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<Checkout />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
