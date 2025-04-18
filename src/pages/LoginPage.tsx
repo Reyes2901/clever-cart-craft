@@ -11,11 +11,38 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /*const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement login logic
     console.log("Login attempt", { email, password });
+  };*/
+  //reeemplazar por el siguiente codigo
+  //begin
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok && data.success) {
+        alert("Login exitoso 🎉");
+        navigate("/"); // o redirige donde quieras
+      } else {
+        alert("❌ " + data.message);
+      }
+    } catch (err) {
+      console.error("Error al iniciar sesión:", err);
+      alert("Error en el servidor");
+    }
   };
+  
+  //end
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -25,7 +52,7 @@ const LoginPage = () => {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
-          Iniciar Sesión
+          Iniciar Sesión 
         </h2>
       </div>
 

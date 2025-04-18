@@ -5,7 +5,10 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
 import { Product } from "@/types";
+//import locales sustituir por axios
 import { products, getProductsByCategory, getCategoryById } from "@/data/products";
+//import axios from "axios";
+
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
