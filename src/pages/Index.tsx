@@ -19,7 +19,6 @@ const Index = () => {
         
         <main className="flex-grow">
           <HeroSection />
-          <CategoryGrid />
           <FeaturedProducts />
           
          
