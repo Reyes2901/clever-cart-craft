@@ -1,266 +1,180 @@
-
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Product } from "@/types";
-import { getProductById, getProductsByCategory } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
-import { useCart } from "@/context/CartContext";
-import { ShoppingCart, Heart, Share2, Truck, RotateCcw, Shield } from "lucide-react";
+import { Product } from "@/types";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
-const ProductDetail = () => {
-  const { productId } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState("");
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const { addToCart } = useCart();
-  
+const ProductListing = () => {
+  const [displayProducts, setDisplayProducts] = useState<Product[]>([]);
+  const [priceRange, setPriceRange] = useState([0, 500]);
+  const [sortOption, setSortOption] = useState<string>("featured");
+  const [inStockOnly, setInStockOnly] = useState<boolean>(false);
+
   useEffect(() => {
-    if (productId) {
-      const foundProduct = getProductById(productId);
-      if (foundProduct) {
-        setProduct(foundProduct);
-        setSelectedImage(foundProduct.images[0]);
-        
-        // Get related products from the same category
-        const related = getProductsByCategory(foundProduct.category)
-          .filter(p => p.id !== productId)
-          .slice(0, 4);
-        setRelatedProducts(related);
+    // Función para obtener los productos desde la API
+    const fetchProducts = async () => {
+      const BASE_URL = import.meta.env.VITE_API_URL; // Obtén la URL de la API desde la variable de entorno
+      const url = `${BASE_URL}/products/`; // Solo se obtienen todos los productos, sin categoría
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (response.ok) {
+          setDisplayProducts(data); // Asigna los productos obtenidos al estado
+        } else {
+          console.error("Error fetching products:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
       }
+    };
+
+    fetchProducts(); // Llamada a la función cuando el componente se monta
+
+  }, []); // Se ejecutará una sola vez al cargar el componente
+
+  useEffect(() => {
+    let filteredProducts = [...displayProducts];
+
+    // Aplicar filtros
+    if (inStockOnly) {
+      filteredProducts = filteredProducts.filter((product) => product.inStock);
     }
-  }, [productId]);
-  
-  const handleAddToCart = () => {
-    if (product) {
-      addToCart(product, quantity);
-    }
-  };
-  
-  const incrementQuantity = () => {
-    setQuantity(prev => prev + 1);
-  };
-  
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
-    }
-  };
-  
-  if (!product) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow container mx-auto px-4 py-12">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold">No se ha encontrado el producto</h2>
-            <p className="mt-4 text-gray-600">
-            El producto que buscas no existe o ha sido eliminado.
-            </p>
-            <Link to="/products" className="mt-6 inline-block text-shop-blue hover:underline">
-            Buscar todos los productos
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </div>
+
+    // Aplicar filtro de precio
+    filteredProducts = filteredProducts.filter(
+      (product) => product.price >= priceRange[0] && product.price <= priceRange[1]
     );
-  }
-  
-  const hasDiscount = product.discountPrice && product.discountPrice < product.price;
-  
+
+    // Aplicar ordenación
+    switch (sortOption) {
+      case "price-asc":
+        filteredProducts.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        filteredProducts.sort((a, b) => b.price - a.price);
+        break;
+      case "rating":
+        filteredProducts.sort((a, b) => b.rating - a.rating);
+        break;
+      case "featured":
+      default:
+        // Featured - mantener el orden de los productos o ordenarlos por el flag de destacado
+        filteredProducts.sort((a, b) => {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          return 0;
+        });
+        break;
+    }
+
+    setDisplayProducts(filteredProducts); // Actualiza los productos filtrados
+
+  }, [priceRange, sortOption, inStockOnly, displayProducts]); // Se ejecutará cada vez que cambie el filtro o los productos
+
   return (
     <>
       <Helmet>
-        <title>{product.name} | eCommerceIA</title>
-        <meta name="description" content={product.description.substring(0, 160)} />
+        <title>Productos | eCommerceIA</title>
+        <meta name="description" content="Compra nuestra colección de productos" />
       </Helmet>
-      
+
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        
+
         <main className="flex-grow">
+          <div className="bg-gray-50 py-6">
+            <div className="container mx-auto px-4">
+              <h1 className="text-3xl font-bold text-gray-900">Todos los Productos</h1>
+              <p className="text-gray-600 mt-2">
+                {displayProducts.length} productos encontrados
+              </p>
+            </div>
+          </div>
+
           <div className="container mx-auto px-4 py-8">
-            {/* Breadcrumb */}
-            <nav className="text-sm mb-6">
-              <ol className="flex">
-                <li>
-                  <Link to="/" className="text-gray-500 hover:text-shop-blue">Home</Link>
-                  <span className="mx-2">/</span>
-                </li>
-                <li>
-                  <Link to="/products" className="text-gray-500 hover:text-shop-blue">Productos</Link>
-                  <span className="mx-2">/</span>
-                </li>
-                <li className="text-gray-900 font-medium">{product.name}</li>
-              </ol>
-            </nav>
-            
-            <div className="flex flex-col md:flex-row gap-8">
-              {/* Product Images */}
-              <div className="md:w-1/2">
-                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
-                  <img 
-                    src={selectedImage} 
-                    alt={product.name} 
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                
-                <div className="flex space-x-2 overflow-x-auto pb-2">
-                  {product.images.map((image, index) => (
-                    <button
-                      key={index}
-                      className={`w-20 h-20 border rounded-md overflow-hidden flex-shrink-0 
-                        ${image === selectedImage ? 'border-shop-blue ring-2 ring-shop-blue/20' : 'border-gray-200'}`}
-                      onClick={() => setSelectedImage(image)}
-                    >
-                      <img 
-                        src={image} 
-                        alt={`${product.name} thumbnail ${index + 1}`}
-                        className="w-full h-full object-cover"
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Filtros - Barra lateral */}
+              <div className="lg:w-1/4">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h2 className="font-semibold text-lg mb-4">Filtros</h2>
+
+                  {/* Rango de precio */}
+                  <div className="mb-6">
+                    <h3 className="font-medium mb-3">Rango de precios</h3>
+                    <Slider
+                      defaultValue={priceRange}
+                      min={0}
+                      max={500}
+                      step={10}
+                      onValueChange={setPriceRange}
+                    />
+                    <div className="flex justify-between mt-2">
+                      <span className="text-gray-600 text-sm">${priceRange[0]}</span>
+                      <span className="text-gray-600 text-sm">${priceRange[1]}</span>
+                    </div>
+                  </div>
+
+                  {/* Disponibilidad */}
+                  <div className="mb-6">
+                    <h3 className="font-medium mb-3">Disponibilidad</h3>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="in-stock"
+                        checked={inStockOnly}
+                        onCheckedChange={(checked) => setInStockOnly(checked as boolean)}
                       />
-                    </button>
-                  ))}
+                      <Label htmlFor="in-stock">En stock</Label>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
-              {/* Product Info */}
-              <div className="md:w-1/2">
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{product.name}</h1>
-                
-                <div className="flex items-center mt-2 mb-4">
-                  <div className="flex">
-                    {[...Array(5)].map((_, index) => (
-                      <span key={index} className={`text-sm ${index < Math.floor(product.rating) ? 'text-yellow-400' : 'text-gray-300'}`}>
-                        ★
-                      </span>
+
+              {/* Cuadrícula de productos */}
+              <div className="lg:w-3/4">
+                {/* Opciones de orden */}
+                <div className="flex justify-between items-center mb-6">
+                  <p className="text-gray-600 text-sm">
+                    Mostrar {displayProducts.length} resultados
+                  </p>
+
+                  <select
+                    className="border rounded-md p-2 text-sm"
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)}
+                  >
+                    <option value="featured">Destacados</option>
+                    <option value="price-asc">Precio: De menor a mayor</option>
+                    <option value="price-desc">Precio: de mayor a menor</option>
+                    <option value="rating">Mejor valorado</option>
+                  </select>
+                </div>
+
+                {displayProducts.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {displayProducts.map((product) => (
+                      <ProductCard key={product.id} product={product} />
                     ))}
                   </div>
-                  <span className="ml-2 text-sm text-gray-500">{product.rating} stars</span>
-                </div>
-                
-                <div className="mt-4">
-                  {hasDiscount ? (
-                    <div className="flex items-center">
-                      <span className="text-2xl font-bold text-shop-accent">${product.discountPrice?.toFixed(2)}</span>
-                      <span className="ml-2 text-gray-500 line-through">${product.price.toFixed(2)}</span>
-                      <Badge variant="sale" className="ml-2">
-                        Sale
-                      </Badge>
-                    </div>
-                  ) : (
-                    <span className="text-2xl font-bold text-gray-900">${product.price.toFixed(2)}</span>
-                  )}
-                </div>
-                
-                <div className="border-t border-b border-gray-200 my-6 py-6">
-                  <p className="text-gray-700 mb-4">{product.description}</p>
-                  
-                  {/* Stock Status */}
-                  <div className="mt-4 mb-6">
-                    <span className={`inline-flex items-center ${product.inStock ? 'text-green-600' : 'text-red-600'}`}>
-                      <span className={`w-2 h-2 rounded-full mr-2 ${product.inStock ? 'bg-green-600' : 'bg-red-600'}`}></span>
-                      {product.inStock ? 'In Stock' : 'Out of Stock'}
-                    </span>
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-gray-500">No se han encontrado productos que coincidan con sus criterios.</p>
                   </div>
-                  
-                  {/* Quantity Selector */}
-                  <div className="mt-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Cantidad</label>
-                    <div className="flex items-center">
-                      <button
-                        className="w-10 h-10 border border-gray-300 rounded-l-md flex items-center justify-center"
-                        onClick={decrementQuantity}
-                        disabled={quantity <= 1}
-                      >
-                        -
-                      </button>
-                      <input
-                        type="number"
-                        className="w-16 h-10 border-t border-b border-gray-300 text-center"
-                        value={quantity}
-                        min="1"
-                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                      />
-                      <button
-                        className="w-10 h-10 border border-gray-300 rounded-r-md flex items-center justify-center"
-                        onClick={incrementQuantity}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-                  <Button 
-                    className="flex-1 h-12 bg-shop-blue hover:bg-shop-lightBlue"
-                    onClick={handleAddToCart}
-                    disabled={!product.inStock}
-                  >
-                    <ShoppingCart className="mr-2 h-5 w-5" />
-                    Añadir al carrito
-                  </Button>
-                  
-                  <Button 
-                    variant="secondary" 
-                    className="flex-1 h-12"
-                    onClick={() => {}}
-                  >
-                    <Heart className="mr-2 h-5 w-5" />
-                    Lista de deseos
-                  </Button>
-                </div>
-                
-                {/* Product Features */}
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-start space-x-3">
-                    <Truck className="w-5 h-5 text-shop-blue flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium text-gray-900">Envío gratis</h4>
-                      <p className="text-sm text-gray-500">En pedidos superiores a 50</p>
-                    </div>
-                  </div>
-                  
-
-                  
-                  <div className="flex items-start space-x-3">
-                    <Shield className="w-5 h-5 text-shop-blue flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium text-gray-900">Pago seguro</h4>
-                      <p className="text-sm text-gray-500">Pagos protegidos al 100%</p>
-                    </div>
-                  </div>
-                </div>
-                
-              
+                )}
               </div>
             </div>
-            
-            {/* Related Products */}
-            {relatedProducts.length > 0 && (
-              <div className="mt-16">
-                <h2 className="section-heading">Otros productos</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-                  {relatedProducts.map(product => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </main>
-        
+
         <Footer />
       </div>
     </>
   );
 };
 
-export default ProductDetail;
+export default ProductListing;
