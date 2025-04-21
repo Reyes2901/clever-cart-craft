@@ -26,59 +26,7 @@ export function Footer() {
             </div>
           </div>
           
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/" className="text-gray-600 hover:text-shop-blue transition-colors">
-                  Inicio
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="text-gray-600 hover:text-shop-blue transition-colors">
-                  Tienda
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-gray-600 hover:text-shop-blue transition-colors">
-                  Sobre Nosotros
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-gray-600 hover:text-shop-blue transition-colors">
-                  Contacto
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          {/* Customer Service */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Servicio al Cliente</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/faq" className="text-gray-600 hover:text-shop-blue transition-colors">
-                  Preguntas Frecuentes
-                </Link>
-              </li>
-              <li>
-                <Link to="/shipping" className="text-gray-600 hover:text-shop-blue transition-colors">
-                  Política de Envíos
-                </Link>
-              </li>
-              <li>
-                <Link to="/returns" className="text-gray-600 hover:text-shop-blue transition-colors">
-                  Devoluciones y Cambios
-                </Link>
-              </li>
-              <li>
-                <Link to="/privacy" className="text-gray-600 hover:text-shop-blue transition-colors">
-                  Política de Privacidad
-                </Link>
-              </li>
-            </ul>
-          </div>
+ 
           
           {/* Contact Info */}
           <div>
