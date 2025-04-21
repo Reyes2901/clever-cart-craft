@@ -15,8 +15,10 @@ const RegisterPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const BASE_URL = import.meta.env.VITE_API_URL
+
     try {
-      const response = await fetch("http://127.0.0.1:5000/register", {
+      const response = await fetch(`${BASE_URL}/register-cliente/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),
