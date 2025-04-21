@@ -9,7 +9,7 @@ export function HeroSection() {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-center md:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Bienvenidos a <span className="text-yellow-300">TechStore</span>
+              Bienvenidos a <span className="text-yellow-300">eComerciaIA</span>
             </h1>
             <p className="mt-4 text-lg text-white/90 max-w-lg mx-auto md:mx-0 mb-8">
               Tu destino para encontrar los mejores productos tecnológicos al mejor precio.

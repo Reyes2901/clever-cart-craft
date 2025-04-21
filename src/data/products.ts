@@ -8,18 +8,7 @@ export const categories: Category[] = [
     description: "Latest gadgets and electronic devices",
     image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8fDA%3D"
   },
-  {
-    id: "clothing",
-    name: "Clothing",
-    description: "Trendy clothing for all occasions",
-    image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNsb3RoaW5nfGVufDB8fDB8fHww"
-  },
-  {
-    id: "home",
-    name: "Home & Kitchen",
-    description: "Everything for your home needs",
-    image: "https://images.unsplash.com/photo-1556185781-a47769abb7ee?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8a2l0Y2hlbnxlbnwwfHwwfHx8MA%3D%3D"
-  },
+
   {
     id: "books",
     name: "Books",

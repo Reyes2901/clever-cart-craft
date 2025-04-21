@@ -85,7 +85,7 @@ const ProductListing = () => {
             <div className="container mx-auto px-4">
               <h1 className="text-3xl font-bold text-gray-900">{categoryName}</h1>
               <p className="text-gray-600 mt-2">
-                {displayProducts.length} products found
+                {displayProducts.length} productos encontrados
               </p>
             </div>
           </div>
@@ -95,11 +95,11 @@ const ProductListing = () => {
               {/* Filters - Sidebar */}
               <div className="lg:w-1/4">
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h2 className="font-semibold text-lg mb-4">Filters</h2>
+                  <h2 className="font-semibold text-lg mb-4">Filtros</h2>
                   
                   {/* Price Range */}
                   <div className="mb-6">
-                    <h3 className="font-medium mb-3">Price Range</h3>
+                    <h3 className="font-medium mb-3">Rango de precios</h3>
                     <Slider 
                       defaultValue={priceRange} 
                       min={0} 
@@ -115,14 +115,14 @@ const ProductListing = () => {
                   
                   {/* Availability */}
                   <div className="mb-6">
-                    <h3 className="font-medium mb-3">Availability</h3>
+                    <h3 className="font-medium mb-3">Disponibilidad</h3>
                     <div className="flex items-center space-x-2">
                       <Checkbox 
                         id="in-stock" 
                         checked={inStockOnly}
                         onCheckedChange={(checked) => setInStockOnly(checked as boolean)} 
                       />
-                      <Label htmlFor="in-stock">In Stock Only</Label>
+                      <Label htmlFor="in-stock">En stock</Label>
                     </div>
                   </div>
                 </div>
@@ -133,7 +133,7 @@ const ProductListing = () => {
                 {/* Sort Options */}
                 <div className="flex justify-between items-center mb-6">
                   <p className="text-gray-600 text-sm">
-                    Showing {displayProducts.length} results
+                  Mostrar {displayProducts.length} resultados
                   </p>
                   
                   <select 
@@ -141,10 +141,10 @@ const ProductListing = () => {
                     value={sortOption}
                     onChange={(e) => setSortOption(e.target.value)}
                   >
-                    <option value="featured">Featured</option>
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                    <option value="rating">Highest Rated</option>
+                    <option value="featured">Destacados</option>
+                    <option value="price-asc">Precio: De menor a mayor</option>
+                    <option value="price-desc">Precio: de mayor a menor</option>
+                    <option value="rating">Mejor valorado</option>
                   </select>
                 </div>
                 
@@ -156,7 +156,7 @@ const ProductListing = () => {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <p className="text-gray-500">No products found matching your criteria.</p>
+                    <p className="text-gray-500">No se han encontrado productos que coincidan con sus criterios.</p>
                   </div>
                 )}
               </div>

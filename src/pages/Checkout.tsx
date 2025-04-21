@@ -26,7 +26,7 @@ const Checkout = () => {
     return (
       <>
         <Helmet>
-          <title>Order Confirmation | eCommerceIA</title>
+          <title>Confirmación de pedido | eCommerceIA</title>
         </Helmet>
         
         <div className="flex flex-col min-h-screen">
@@ -40,13 +40,13 @@ const Checkout = () => {
                 </svg>
               </div>
               
-              <h1 className="text-2xl font-bold mb-4">Order Confirmed!</h1>
+              <h1 className="text-2xl font-bold mb-4">Pedido confirmado!</h1>
               <p className="text-gray-600 mb-6">
-                Thank you for your purchase. Your order has been received and is being processed.
+              Gracias por su compra. Su pedido ha sido recibido y está siendo procesado.
               </p>
               
               <Button className="w-full bg-shop-blue hover:bg-shop-lightBlue" asChild>
-                <Link to="/">Return to Home</Link>
+                <Link to="/">Volver a la página principal</Link>
               </Button>
             </div>
           </main>
@@ -60,7 +60,7 @@ const Checkout = () => {
   return (
     <>
       <Helmet>
-        <title>Checkout | eCommerceIA</title>
+        <title>Pedido | eCommerceIA</title>
         <meta name="description" content="Complete your purchase securely" />
       </Helmet>
       
@@ -69,7 +69,7 @@ const Checkout = () => {
         
         <main className="flex-grow">
           <div className="container mx-auto px-4 py-8">
-            <h1 className="text-2xl md:text-3xl font-bold mb-6">Checkout</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6">Pedido</h1>
             
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Checkout Form */}
@@ -77,51 +77,44 @@ const Checkout = () => {
                 <form onSubmit={handleSubmitOrder}>
                   {/* Shipping Information */}
                   <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                    <h2 className="text-lg font-semibold mb-4">Shipping Information</h2>
+                    <h2 className="text-lg font-semibold mb-4">Información sobre el envío</h2>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="firstName">First Name</Label>
+                        <Label htmlFor="firstName">Nombre</Label>
                         <Input id="firstName" placeholder="John" required className="mt-1" />
                       </div>
                       
                       <div>
-                        <Label htmlFor="lastName">Last Name</Label>
+                        <Label htmlFor="lastName">Apellido</Label>
                         <Input id="lastName" placeholder="Doe" required className="mt-1" />
                       </div>
                       
                       <div className="md:col-span-2">
-                        <Label htmlFor="email">Email Address</Label>
+                        <Label htmlFor="email">email</Label>
                         <Input id="email" type="email" placeholder="your@email.com" required className="mt-1" />
                       </div>
                       
                       <div className="md:col-span-2">
-                        <Label htmlFor="address">Street Address</Label>
+                        <Label htmlFor="address">Dirección</Label>
                         <Input id="address" placeholder="123 Main St" required className="mt-1" />
                       </div>
                       
                       <div>
-                        <Label htmlFor="city">City</Label>
+                        <Label htmlFor="city">Ciudad</Label>
                         <Input id="city" placeholder="New York" required className="mt-1" />
                       </div>
                       
-                      <div>
-                        <Label htmlFor="zipCode">ZIP / Postal Code</Label>
-                        <Input id="zipCode" placeholder="10001" required className="mt-1" />
-                      </div>
+                      
+                      
                       
                       <div>
-                        <Label htmlFor="state">State / Province</Label>
-                        <Input id="state" placeholder="NY" required className="mt-1" />
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="country">Country</Label>
+                        <Label htmlFor="country">País</Label>
                         <Input id="country" placeholder="United States" required className="mt-1" />
                       </div>
                       
                       <div className="md:col-span-2">
-                        <Label htmlFor="phone">Phone Number</Label>
+                        <Label htmlFor="phone">Teléfono</Label>
                         <Input id="phone" placeholder="(123) 456-7890" required className="mt-1" />
                       </div>
                     </div>
@@ -129,22 +122,22 @@ const Checkout = () => {
                   
                   {/* Payment Information */}
                   <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                    <h2 className="text-lg font-semibold mb-4">Payment Information</h2>
+                    <h2 className="text-lg font-semibold mb-4">Información de pago</h2>
                     
                     <div className="space-y-4">
                       <div>
-                        <Label htmlFor="cardName">Name on Card</Label>
+                        <Label htmlFor="cardName">Nombre en la tarjeta</Label>
                         <Input id="cardName" placeholder="John Doe" required className="mt-1" />
                       </div>
                       
                       <div>
-                        <Label htmlFor="cardNumber">Card Number</Label>
+                        <Label htmlFor="cardNumber">Número de tarjeta</Label>
                         <Input id="cardNumber" placeholder="4242 4242 4242 4242" required className="mt-1" />
                       </div>
                       
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="expiryDate">Expiry Date</Label>
+                          <Label htmlFor="expiryDate">Fecha de expiración</Label>
                           <Input id="expiryDate" placeholder="MM/YY" required className="mt-1" />
                         </div>
                         
@@ -160,7 +153,7 @@ const Checkout = () => {
                     type="submit" 
                     className="w-full bg-shop-blue hover:bg-shop-lightBlue h-12 text-base"
                   >
-                    Place Order
+                    Hacer un pedido
                   </Button>
                 </form>
               </div>
@@ -168,7 +161,7 @@ const Checkout = () => {
               {/* Order Summary */}
               <div className="lg:w-1/3">
                 <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24">
-                  <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+                  <h2 className="text-lg font-semibold mb-4">Resumen del pedido</h2>
                   
                   {/* Items */}
                   <div className="space-y-4 mb-4">
@@ -201,7 +194,7 @@ const Checkout = () => {
                     </div>
                     
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Shipping</span>
+                      <span className="text-gray-600">Envío</span>
                       <span>Free</span>
                     </div>
                     

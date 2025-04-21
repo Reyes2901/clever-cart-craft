@@ -58,12 +58,12 @@ const ProductDetail = () => {
         <Navbar />
         <main className="flex-grow container mx-auto px-4 py-12">
           <div className="text-center">
-            <h2 className="text-2xl font-bold">Product Not Found</h2>
+            <h2 className="text-2xl font-bold">No se ha encontrado el producto</h2>
             <p className="mt-4 text-gray-600">
-              The product you're looking for doesn't exist or has been removed.
+            El producto que buscas no existe o ha sido eliminado.
             </p>
             <Link to="/products" className="mt-6 inline-block text-shop-blue hover:underline">
-              Browse all products
+            Buscar todos los productos
             </Link>
           </div>
         </main>
@@ -94,7 +94,7 @@ const ProductDetail = () => {
                   <span className="mx-2">/</span>
                 </li>
                 <li>
-                  <Link to="/products" className="text-gray-500 hover:text-shop-blue">Products</Link>
+                  <Link to="/products" className="text-gray-500 hover:text-shop-blue">Productos</Link>
                   <span className="mx-2">/</span>
                 </li>
                 <li className="text-gray-900 font-medium">{product.name}</li>
@@ -172,7 +172,7 @@ const ProductDetail = () => {
                   
                   {/* Quantity Selector */}
                   <div className="mt-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Cantidad</label>
                     <div className="flex items-center">
                       <button
                         className="w-10 h-10 border border-gray-300 rounded-l-md flex items-center justify-center"
@@ -205,7 +205,7 @@ const ProductDetail = () => {
                     disabled={!product.inStock}
                   >
                     <ShoppingCart className="mr-2 h-5 w-5" />
-                    Add to Cart
+                    Añadir al carrito
                   </Button>
                   
                   <Button 
@@ -214,7 +214,7 @@ const ProductDetail = () => {
                     onClick={() => {}}
                   >
                     <Heart className="mr-2 h-5 w-5" />
-                    Wishlist
+                    Lista de deseos
                   </Button>
                 </div>
                 
@@ -223,44 +223,30 @@ const ProductDetail = () => {
                   <div className="flex items-start space-x-3">
                     <Truck className="w-5 h-5 text-shop-blue flex-shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-gray-900">Free Shipping</h4>
-                      <p className="text-sm text-gray-500">On orders over $50</p>
+                      <h4 className="font-medium text-gray-900">Envío gratis</h4>
+                      <p className="text-sm text-gray-500">En pedidos superiores a 50</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-3">
-                    <RotateCcw className="w-5 h-5 text-shop-blue flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium text-gray-900">Easy Returns</h4>
-                      <p className="text-sm text-gray-500">30-day return policy</p>
-                    </div>
-                  </div>
+
                   
                   <div className="flex items-start space-x-3">
                     <Shield className="w-5 h-5 text-shop-blue flex-shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-gray-900">Secure Checkout</h4>
-                      <p className="text-sm text-gray-500">100% protected payments</p>
+                      <h4 className="font-medium text-gray-900">Pago seguro</h4>
+                      <p className="text-sm text-gray-500">Pagos protegidos al 100%</p>
                     </div>
                   </div>
                 </div>
                 
-                {/* Share */}
-                <div className="mt-8 flex items-center">
-                  <span className="text-gray-600 mr-4">Share:</span>
-                  <div className="flex space-x-2">
-                    <button className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-shop-blue hover:text-white transition-colors">
-                      <Share2 size={16} />
-                    </button>
-                  </div>
-                </div>
+              
               </div>
             </div>
             
             {/* Related Products */}
             {relatedProducts.length > 0 && (
               <div className="mt-16">
-                <h2 className="section-heading">Related Products</h2>
+                <h2 className="section-heading">Otros productos</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
                   {relatedProducts.map(product => (
                     <ProductCard key={product.id} product={product} />

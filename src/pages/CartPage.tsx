@@ -14,7 +14,7 @@ const CartPage = () => {
   return (
     <>
       <Helmet>
-        <title>Shopping Cart | eCommerceIA</title>
+        <title>Carrito de la compra | eCommerceIA</title>
         <meta name="description" content="Review and manage items in your shopping cart" />
       </Helmet>
       
@@ -23,19 +23,19 @@ const CartPage = () => {
         
         <main className="flex-grow">
           <div className="container mx-auto px-4 py-8">
-            <h1 className="text-2xl md:text-3xl font-bold mb-6">Shopping Cart</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6">Carrito de la compra</h1>
             
             {isEmpty ? (
               <div className="text-center py-12 bg-white rounded-lg shadow-sm">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
                   <ShoppingBag className="h-8 w-8 text-gray-400" />
                 </div>
-                <h2 className="text-xl font-semibold mb-2">Your cart is empty</h2>
+                <h2 className="text-xl font-semibold mb-2">Su carrito está vacío</h2>
                 <p className="text-gray-600 mb-6">
-                  Looks like you haven't added any products to your cart yet.
+                Parece que aún no has añadido ningún producto a tu carrito.
                 </p>
                 <Button asChild>
-                  <Link to="/products">Continue Shopping</Link>
+                  <Link to="/products">Continue Comprando</Link>
                 </Button>
               </div>
             ) : (
@@ -45,9 +45,9 @@ const CartPage = () => {
                   <div className="bg-white rounded-lg shadow-sm">
                     {/* Headers */}
                     <div className="hidden md:grid md:grid-cols-12 gap-4 p-4 border-b text-sm font-medium text-gray-500">
-                      <div className="md:col-span-6">Product</div>
-                      <div className="md:col-span-2 text-center">Price</div>
-                      <div className="md:col-span-2 text-center">Quantity</div>
+                      <div className="md:col-span-6">Producto</div>
+                      <div className="md:col-span-2 text-center">Precio</div>
+                      <div className="md:col-span-2 text-center">Cantidad</div>
                       <div className="md:col-span-2 text-right">Total</div>
                     </div>
                     
@@ -91,14 +91,14 @@ const CartPage = () => {
                             {/* Price (mobile and desktop) */}
                             <div className="md:col-span-2 text-center mt-4 md:mt-0">
                               <div className="flex justify-between md:block">
-                                <span className="md:hidden text-gray-500">Price:</span>
+                                <span className="md:hidden text-gray-500">Precio:</span>
                                 <span>${price.toFixed(2)}</span>
                               </div>
                             </div>
                             
                             {/* Quantity (mobile and desktop) */}
                             <div className="md:col-span-2 flex justify-between md:justify-center items-center mt-4 md:mt-0">
-                              <span className="md:hidden text-gray-500">Quantity:</span>
+                              <span className="md:hidden text-gray-500">Cantidad:</span>
                               <div className="flex items-center">
                                 <button
                                   className="w-8 h-8 border border-gray-300 rounded-l-md flex items-center justify-center"
@@ -138,7 +138,7 @@ const CartPage = () => {
                   
                   <div className="mt-6 flex justify-between">
                     <Link to="/products" className="text-shop-blue hover:underline">
-                      ← Continue Shopping
+                      ← Continue Comprando
                     </Link>
                   </div>
                 </div>
@@ -146,7 +146,7 @@ const CartPage = () => {
                 {/* Order Summary */}
                 <div className="lg:w-1/3">
                   <div className="bg-white rounded-lg shadow-sm p-6">
-                    <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+                    <h2 className="text-lg font-semibold mb-4">Resumen del pedido</h2>
                     
                     <div className="space-y-4">
                       <div className="flex justify-between">
@@ -155,8 +155,8 @@ const CartPage = () => {
                       </div>
                       
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Shipping</span>
-                        <span>Calculated at checkout</span>
+                        <span className="text-gray-600">Envío</span>
+                        <span>Calculado a pagar</span>
                       </div>
                       
                       <div className="border-t pt-4 flex justify-between font-semibold">
@@ -166,12 +166,12 @@ const CartPage = () => {
                     </div>
                     
                     <Button className="w-full mt-6 bg-shop-blue hover:bg-shop-lightBlue h-12 text-base" asChild>
-                      <Link to="/checkout">Proceed to Checkout</Link>
+                      <Link to="/checkout">Proceder al pago</Link>
                     </Button>
                     
                     {/* Payment Methods */}
                     <div className="mt-6">
-                      <p className="text-sm text-gray-500 mb-2">We accept:</p>
+                      <p className="text-sm text-gray-500 mb-2">Aceptamos:</p>
                       <div className="flex space-x-2">
                         <div className="h-6 w-10 bg-gray-200 rounded"></div>
                         <div className="h-6 w-10 bg-gray-200 rounded"></div>
