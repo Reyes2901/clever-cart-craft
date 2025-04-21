@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 import api from './api';
 
 // Para obtener productos
-api.get('/productos')
+api.get('/api/products/')
   .then(response => {
     console.log(response.data);
   })
@@ -16,7 +16,7 @@ api.get('/productos')
   });
 
 // Para registrar un usuario
-api.post('/register', {
+api.post('api/register-cliente/', {
   username: 'nuevo_usuario',
   email: 'nuevo@correo.com',
   password: 'contraseña',
