@@ -5,6 +5,9 @@ import { Helmet } from "react-helmet";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import axios from "axios";
+
+
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -18,24 +21,31 @@ const RegisterPage = () => {
     const BASE_URL = import.meta.env.VITE_API_URL
 
     try {
-      const response = await fetch(`https://backenddjango-production-c48c.up.railway.app/api/register-cliente/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-      });
-
-      if (response.ok) {
-        alert("¡Registro exitoso!");
-        navigate("/login");
-      } else {
-        const data = await response.json();
-        alert(data.message || "Error al registrarse");
-      }
+      const response = await axios.post(
+        "https://backenddjango-production-c48c.up.railway.app/api/register-cliente/",
+        {
+          username,
+          email,
+          password
+        },
+        {
+          headers: { "Content-Type": "application/json" }
+        }
+      );
+    
+      alert("¡Registro exitoso!");
+      navigate("/login");
+    
     } catch (error) {
-      console.error("Error:", error);
-      alert("Error al conectar con el servidor");
+      if (axios.isAxiosError(error) && error.response) {
+        const data = error.response.data;
+        alert(data.message || "Error al registrarse");
+      } else {
+        console.error("Error:", error);
+        alert("Error al conectar con el servidor");
+      }
     }
-  };
+    
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4">
