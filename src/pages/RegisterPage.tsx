@@ -21,29 +21,23 @@ const RegisterPage = () => {
     const BASE_URL = import.meta.env.VITE_API_URL
 
     try {
-      const response = await axios.post(
-        "https://backenddjango-production-c48c.up.railway.app/api/register-cliente/",
-        {
-          username,
-          email,
-          password
-        },
-        {
-          headers: { "Content-Type": "application/json" }
-        }
-      );
+      const response = await fetch(`${BASE_URL}/register-cliente/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      });
     
-      alert("¡Registro exitoso!");
-      navigate("/login");
-    
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const data = error.response.data;
-        alert(data.message || "Error al registrarse");
+      if (response.ok) {
+        alert("¡Registro exitoso!");
+        navigate("/login");
       } else {
-        console.error("Error:", error);
-        alert("Error al conectar con el servidor");
+        const data = await response.json();
+        alert(data.message || "Error al registrarse");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error al conectar con el servidor");
+    } 
     }
     
 
