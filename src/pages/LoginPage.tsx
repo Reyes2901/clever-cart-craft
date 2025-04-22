@@ -29,6 +29,7 @@ const LoginPage = () => {
       window.dispatchEvent(new Event("authChange"));
       console.log("Usuario Autenticado",user);
       alert("Inicio de sesion exitoso");
+      navigate("/");
     } catch (err) {
       alert(err.message);
     }
