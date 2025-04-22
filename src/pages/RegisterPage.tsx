@@ -20,7 +20,8 @@ const RegisterPage = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
 
-     async function RegistrarCliente(nombre, apellido, correo, password) {
+
+    async function RegistrarCliente(nombre: string, apellido: string, correo: string, password: string) {
       const response = await fetch(`${BASE_URL}/register-cliente/`, {
         method: "POST",
         headers: {
@@ -33,9 +34,24 @@ const RegisterPage = () => {
           password,
         }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Error en el registro: ${response.status}`);
+      }
+
+      return await response.json();  // Si tu API devuelve algo como { message: 'ok' }
     }
-    await RegistrarCliente(username, "", email, password);
-  }; // 👉🏼 AQUÍ faltaba esta llave y el punto y coma.
+
+    try {
+      const result = await RegistrarCliente(username, "", email, password);
+      console.log("Registro exitoso:", result);
+      alert("¡Registro exitoso!");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error al registrar:", error);
+      alert("Hubo un problema al registrarte.");
+    }
+  };
   
 
   return (
