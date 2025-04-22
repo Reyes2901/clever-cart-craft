@@ -7,8 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+ 
   const navigate = useNavigate();
 
   /*const handleSubmit = (e: React.FormEvent) => {
@@ -18,29 +17,58 @@ const LoginPage = () => {
   };*/
   //reeemplazar por el siguiente codigo
   //begin
-  const handleSubmit = async (e: React.FormEvent) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const handleLogin = async (e) => {
     e.preventDefault();
-  
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-  
-      const data = await res.json();
-  
-      if (res.ok && data.success) {
-        alert("Login exitoso 🎉");
-        navigate("/"); // o redirige donde quieras
-      } else {
-        alert("❌ " + data.message);
-      }
+      const user= await loginUser(username, password);
+      localStorage.setItem("isAuthenticated","true");
+      localStorage.setItem("user",JSON.stringify(user));
+      window.dispatchEvent(new Event("authChange"));
+      console.log("Usuario Autenticado",user);
+      alert("Inicio de sesion exitoso");
     } catch (err) {
-      console.error("Error al iniciar sesión:", err);
-      alert("Error en el servidor");
+      alert(err.message);
     }
   };
+
+  const BASE_URL = import.meta.env.VITE_API_URL;
+  async function loginUser(username, password) {
+    const response = await fetch(`${BASE_URL}-token-auth/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Credenciales inválidas");
+    }
+  
+    const data = await response.json(); // { token: 'abc123' }
+    const token = data.token;
+    localStorage.setItem("token", token);
+  
+    // 🔁 Ahora obtenemos los datos del usuario
+    const userResponse = await fetch(`${BASE_URL}/me/`, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+  
+    if (!userResponse.ok) {
+      throw new Error("No se pudo obtener la información del usuario");
+    }
+  
+    const user = await userResponse.json();
+    return user; //
+  }
+  
   
   //end
 
@@ -62,7 +90,7 @@ const LoginPage = () => {
             <CardTitle className="text-center">Ingresa a tu cuenta</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Correo electrónico
@@ -73,8 +101,8 @@ const LoginPage = () => {
                     name="email"
                     type="email"
                     required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     className="block w-full"
                   />
                 </div>
