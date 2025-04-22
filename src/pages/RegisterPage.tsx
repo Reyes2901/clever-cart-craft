@@ -11,6 +11,7 @@ import axios from "axios";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
+  const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -74,6 +75,13 @@ const RegisterPage = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
+                <Input
+                type="text"
+                placeholder="apellido"
+                value={apellido}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
               <Input
                 type="email"
                 placeholder="Correo electrónico"
@@ -88,6 +96,7 @@ const RegisterPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+
               <Button type="submit" className="w-full">Registrarse</Button>
             </form>
           </CardContent>
