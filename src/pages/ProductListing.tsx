@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
 import { Product } from "@/types";
 //import locales sustituir por axios
-import { products, getProductsByCategory, getCategoryById } from "@/data/products";
+
 //import axios from "axios";
 
 import { Slider } from "@/components/ui/slider";
@@ -20,55 +20,23 @@ const ProductListing = () => {
   const [sortOption, setSortOption] = useState<string>("featured");
   const [inStockOnly, setInStockOnly] = useState<boolean>(false);
   const [categoryName, setCategoryName] = useState<string>("All Products");
+
+  const BASE_URL = import.meta.env.VITE_API_URL;
   
-  useEffect(() => {
-    // Get products based on category or all products
-    let filteredProducts: Product[];
-    
-    if (categoryId) {
-      filteredProducts = getProductsByCategory(categoryId);
-      const category = getCategoryById(categoryId);
-      if (category) {
-        setCategoryName(category.name);
-      }
-    } else {
-      filteredProducts = [...products];
+   async function obtenerProductos() {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${BASE_URL}/products/`, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error("Error al obtener productos");
     }
-    
-    // Apply filters
-    if (inStockOnly) {
-      filteredProducts = filteredProducts.filter(product => product.inStock);
-    }
-    
-    // Apply price filter
-    filteredProducts = filteredProducts.filter(
-      product => product.price >= priceRange[0] && product.price <= priceRange[1]
-    );
-    
-    // Apply sorting
-    switch (sortOption) {
-      case "price-asc":
-        filteredProducts.sort((a, b) => a.price - b.price);
-        break;
-      case "price-desc":
-        filteredProducts.sort((a, b) => b.price - a.price);
-        break;
-      case "rating":
-        filteredProducts.sort((a, b) => b.rating - a.rating);
-        break;
-      case "featured":
-      default:
-        // Featured - keep products order as is or sort by featured flag
-        filteredProducts.sort((a, b) => {
-          if (a.featured && !b.featured) return -1;
-          if (!a.featured && b.featured) return 1;
-          return 0;
-        });
-        break;
-    }
-    
-    setDisplayProducts(filteredProducts);
-  }, [categoryId, priceRange, sortOption, inStockOnly]);
+  
+    return await response.json();
+  }
   
   return (
     <>
