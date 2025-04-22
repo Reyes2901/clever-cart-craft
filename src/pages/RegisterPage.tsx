@@ -18,28 +18,23 @@ const RegisterPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const BASE_URL = import.meta.env.VITE_API_URL
+    const BASE_URL = import.meta.env.VITE_API_URL;
 
-    try {
+     async function RegistrarCliente(nombre, apellido, correo, password) {
       const response = await fetch(`${BASE_URL}/register-cliente/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre,
+          apellido,
+          correo,
+          password,
+        }),
       });
-    
-      if (response.ok) {
-        alert("¡Registro exitoso!");
-        navigate("/login");
-      } else {
-        const data = await response.json();
-        alert(data.message || "Error al registrarse");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error al conectar con el servidor");
-    } 
     }
-    
+  }; // 👉🏼 AQUÍ faltaba esta llave y el punto y coma.
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4">
@@ -85,3 +80,4 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+
