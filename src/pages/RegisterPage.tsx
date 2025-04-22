@@ -44,7 +44,7 @@ const RegisterPage = () => {
     }
 
     try {
-      const result = await RegistrarCliente(username, "", email, password);
+      const result = await RegistrarCliente(username, apellido, email, password);
       console.log("Registro exitoso:", result);
       alert("¡Registro exitoso!");
       navigate("/login");
@@ -79,7 +79,7 @@ const RegisterPage = () => {
                 type="text"
                 placeholder="apellido"
                 value={apellido}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setApellido(e.target.value)}
                 required
               />
               <Input
