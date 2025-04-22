@@ -5,6 +5,8 @@ import { Footer } from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
 import { CategoryGrid } from "@/components/CategoryGrid";
+import {CheckoutProvider} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 
 const Index = () => {
   return (
@@ -30,5 +32,20 @@ const Index = () => {
     </>
   );
 };
+const stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
+const appearance = { /* appearance */ };
+const options = {
+  layout: {
+    type: 'accordion',
+    defaultCollapsed: false,
+    radios: true,
+    spacedAccordionItems: false
+  }
+};
+const clientSecret = {{CLIENT_SECRET}};
+const elements = stripe.elements({ clientSecret, appearance });
+const paymentElement = elements.create('payment', options);
+paymentElement.mount('#payment-element');
 
 export default Index;
