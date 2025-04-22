@@ -34,7 +34,9 @@ const RegisterPage = () => {
         }),
       });
     }
+    await RegistrarCliente(username, "", email, password);
   }; // 👉🏼 AQUÍ faltaba esta llave y el punto y coma.
+  
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4">
